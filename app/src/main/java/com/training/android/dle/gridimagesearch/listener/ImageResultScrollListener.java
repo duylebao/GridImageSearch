@@ -5,10 +5,8 @@ import android.widget.AbsListView;
 
 import java.util.AbstractList;
 
-public abstract class EndlessScrollListener implements AbsListView.OnScrollListener {
-    // The minimum amount of items to have below your current scroll position
-    // before loading more.
-    private int visibleThreshold = 5;
+public abstract class ImageResultScrollListener implements AbsListView.OnScrollListener {
+    private int visibleThreshold = 8;
     // The current offset index of data you have loaded
     private int currentPage = 0;
     // The total number of items in the dataset after the last load
@@ -18,22 +16,19 @@ public abstract class EndlessScrollListener implements AbsListView.OnScrollListe
     // Sets the starting page index
     private int startingPageIndex = 0;
 
-    public EndlessScrollListener() {
+    public ImageResultScrollListener() {
     }
 
-    public EndlessScrollListener(int visibleThreshold) {
+    public ImageResultScrollListener(int visibleThreshold) {
         this.visibleThreshold = visibleThreshold;
     }
 
-    public EndlessScrollListener(int visibleThreshold, int startPage) {
+    public ImageResultScrollListener(int visibleThreshold, int startPage) {
         this.visibleThreshold = visibleThreshold;
         this.startingPageIndex = startPage;
         this.currentPage = startPage;
     }
 
-    // This happens many times a second during a scroll, so be wary of the code you place here.
-    // We are given a few useful parameters to help us work out if we need to load some more data,
-    // but first we check if we are waiting for the previous load to finish.
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
     {
