@@ -1,10 +1,13 @@
 package com.training.android.dle.gridimagesearch.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 
@@ -56,6 +59,15 @@ public class SearchActivity extends AppCompatActivity {
         };
 
         gvResult.setOnScrollListener(scrollListener);
+        gvResult.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(SearchActivity.this, FullImageActivity.class);
+                ImageResult result = images.get(position);
+                i.putExtra("result", result);
+                startActivity(i);
+            }
+        });
     }
 
     @Override
@@ -97,7 +109,7 @@ public class SearchActivity extends AppCompatActivity {
                 try {
                     stopLoading = false;
                     imageJsonArray = response.getJSONObject("responseData").getJSONArray("results");
-                    if (page == 0){
+                    if (page == 0) {
                         imageResultAdapter.clear();
                     }
                     imageResultAdapter.addAll(ImageResult.toImageResult(imageJsonArray));
@@ -107,4 +119,5 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
     }
+
 }
