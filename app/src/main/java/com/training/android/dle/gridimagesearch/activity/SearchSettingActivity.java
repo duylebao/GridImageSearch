@@ -4,28 +4,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
 import com.training.android.dle.gridimagesearch.R;
-import com.training.android.dle.gridimagesearch.model.ImageResult;
 
-public class FullImageActivity extends AppCompatActivity {
+public class SearchSettingActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.full_image_activity);
+        setContentView(R.layout.activity_search_setting);
         getSupportActionBar().hide();
-        ImageResult result = (ImageResult)getIntent().getSerializableExtra("result");
-        ImageView ivFull = (ImageView)findViewById(R.id.ivFullResult);
-        Picasso.with(this).load(result.url).resize(result.width, result.height).into(ivFull);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_full_image, menu);
+        getMenuInflater().inflate(R.menu.menu_search_setting, menu);
         return true;
     }
 

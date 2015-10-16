@@ -4,9 +4,11 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="search">Search</string>
+    <string name="advance_search">Advance Search</string>
     <string name="search_text_label">Enter Image Search</string>
 
     <string name="title_activity_full_image">FullImageActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_search_setting">Advance Search Options</string>
 </resources>

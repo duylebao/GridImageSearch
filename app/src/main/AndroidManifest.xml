@@ -36,6 +36,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.training.android.dle.gridimagesearch.activity.SearchActivity" />
         </activity>
+        <activity
+            android:name=".activity.SearchSettingActivity"
+            android:label="@string/title_activity_search_setting"
+            android:parentActivityName=".activity.SearchActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.training.android.dle.gridimagesearch.activity.SearchActivity" />
+        </activity>
     </application>
 
 </manifest>
