@@ -11,4 +11,39 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_search_setting">Advance Search Options</string>
+    <string name="image_size">Image Size</string>
+    <string name="save">Save</string>
+    <string name="color_filter">Color Filter</string>
+    <string name="type">Type</string>
+    <string name="site">Site</string>
+
+    <string-array name="size_choice">
+        <item></item>
+        <item>small</item>
+        <item>medium</item>
+        <item>large</item>
+        <item>xlarge</item>
+    </string-array>
+    <string-array name="color_choice">
+        <item></item>
+        <item>black</item>
+        <item>blue</item>
+        <item>brown</item>
+        <item>gray</item>
+        <item>green</item>
+        <item>orange</item>
+        <item>pink</item>
+        <item>purple</item>
+        <item>red</item>
+        <item>teal</item>
+        <item>white</item>
+        <item>yellow</item>
+    </string-array>
+    <string-array name="type_choice">
+        <item></item>
+        <item>faces</item>
+        <item>photo</item>
+        <item>clipart</item>
+        <item>lineart</item>
+    </string-array>
 </resources>

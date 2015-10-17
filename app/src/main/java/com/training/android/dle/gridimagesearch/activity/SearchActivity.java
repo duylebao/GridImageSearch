@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -17,6 +18,7 @@ import com.training.android.dle.gridimagesearch.R;
 import com.training.android.dle.gridimagesearch.adapter.ImageResultAdapter;
 import com.training.android.dle.gridimagesearch.listener.ImageResultScrollListener;
 import com.training.android.dle.gridimagesearch.model.ImageResult;
+import com.training.android.dle.gridimagesearch.model.SearchSetting;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,6 +38,9 @@ public class SearchActivity extends AppCompatActivity {
     private AsyncHttpClient client;
     private boolean stopLoading = false;
     private ImageResultScrollListener scrollListener;
+    private static final int REQUEST_RESULT = 1000;
+    private SearchSetting setting;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +62,7 @@ public class SearchActivity extends AppCompatActivity {
                 return true;
             }
         };
-
+        setting = new SearchSetting();
         gvResult.setOnScrollListener(scrollListener);
         gvResult.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -86,13 +91,20 @@ public class SearchActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.advance_search) {
-            Intent i = new Intent(this, SearchSettingActivity.class);
+            Intent i = new Intent(SearchActivity.this, SearchSettingActivity.class);
+            i.putExtra("settings", setting);
             // start activity
-            //startActivityForResult(i, REQUEST_RESULT);
-            startActivity(i);
+            startActivityForResult(i, REQUEST_RESULT);
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK && requestCode == REQUEST_RESULT){
+            setting = (SearchSetting) data.getSerializableExtra("settings");
+        }
     }
 
     public void onSearch(View view) {
@@ -105,6 +117,22 @@ public class SearchActivity extends AppCompatActivity {
         String text = etSearch.getText().toString();
         int start = page * VISIBLE_THRESHOLD;
         String url = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&rsz="+VISIBLE_THRESHOLD+"&q="+text+"&start="+start;
+        // set up settings
+        if (setting != null){
+            if (setting.size != null && !setting.size.isEmpty()){
+                url = url + "&imgsz="+setting.size;
+            }
+            if (setting.color != null && !setting.color.isEmpty()){
+                url = url + "&imgcolor="+setting.color;
+            }
+            if (setting.type != null && !setting.type.isEmpty()){
+                url = url + "&imgtype="+setting.type;
+            }
+            if (setting.site != null && !setting.site.isEmpty()){
+                url = url + "&as_sitesearch="+setting.site;
+            }
+        }
+        Log.i("DEBUG",url);
         client.get(url, null, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
