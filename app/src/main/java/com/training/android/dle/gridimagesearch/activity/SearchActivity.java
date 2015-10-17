@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -40,6 +41,7 @@ public class SearchActivity extends AppCompatActivity {
     private ImageResultScrollListener scrollListener;
     private static final int REQUEST_RESULT = 1000;
     private SearchSetting setting;
+    private TextView tvNoResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +75,8 @@ public class SearchActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        tvNoResult = (TextView)findViewById(R.id.tvNoResult);
+        tvNoResult.setVisibility( View.GONE );
     }
 
     @Override
@@ -110,6 +114,7 @@ public class SearchActivity extends AppCompatActivity {
     public void onSearch(View view) {
         // reset the variable for scroll listener on a new search
         scrollListener.reset();
+        tvNoResult.setVisibility(View.GONE);
         loadImages(0);
     }
 
@@ -142,6 +147,9 @@ public class SearchActivity extends AppCompatActivity {
                     imageJsonArray = response.getJSONObject("responseData").getJSONArray("results");
                     if (page == 0) {
                         imageResultAdapter.clear();
+                        if (imageJsonArray == null || imageJsonArray.length() == 0){
+                            tvNoResult.setVisibility(View.VISIBLE);
+                        }
                     }
                     imageResultAdapter.addAll(ImageResult.toImageResult(imageJsonArray));
                 } catch (JSONException e) {

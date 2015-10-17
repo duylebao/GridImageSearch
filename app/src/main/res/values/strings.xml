@@ -46,4 +46,5 @@
         <item>clipart</item>
         <item>lineart</item>
     </string-array>
+    <string name="search_not_found">Search found no images</string>
 </resources>
