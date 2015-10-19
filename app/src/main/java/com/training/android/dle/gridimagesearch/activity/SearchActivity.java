@@ -128,7 +128,7 @@ public class SearchActivity extends AppCompatActivity {
                 url = url + "&imgsz="+setting.size;
             }
             if (setting.color != null && !setting.color.isEmpty()){
-                url = url + "&imgcolor="+setting.color;
+                url = url + "&imgc="+setting.color;
             }
             if (setting.type != null && !setting.type.isEmpty()){
                 url = url + "&imgtype="+setting.type;
